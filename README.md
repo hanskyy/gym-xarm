@@ -100,8 +100,16 @@ arm.set_position(x=200, y=0, z=150, speed=50, wait=True)
 arm.disconnect()
 ```
 ## Tutorial for real robotic manipulation
-[A Universal Semantic-Geometric Representation for Robotic Manipulation](https://semantic-geometric-representation.github.io/)
+If you trying to learn how to use real robotic to do tasks, you may need to follow these steps:
 
+1.  [RLBench: The Robot Learning Benchmark & Learning Environment](https://sites.google.com/view/rlbench)
+RLBench is an ambitious large-scale benchmark and learning environment featuring 100 unique, hand-design tasks, tailored to facilitate research in a number of vision-guided manipulation research areas, including: reinforcement learning, imitation learning, multi-task learning, geometric computer vision, and in particular, few-shot learning.
+
+2.  [Perceiver-Actor: A Multi-Task Transformer for Robotic Manipulation (Per-Act)](https://peract.github.io/)
+PerAct is an end-to-end behavior-cloning agent that can learn a single language-conditioned policy for 18 RLBench tasks with 249 unique task variations 
+
+3.  [A Universal Semantic-Geometric Representation for Robotic Manipulation](https://semantic-geometric-representation.github.io/)
+Leveraging semantic information from massive 2D images and geometric information from 3D point clouds, we present Semantic-Geometric Representation (SGR) that enables the robots to solve a range of simulated and real-world manipulation tasks. 
 
 
 

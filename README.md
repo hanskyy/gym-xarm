@@ -100,7 +100,7 @@ arm.set_position(x=200, y=0, z=150, speed=50, wait=True)
 arm.disconnect()
 ```
 ## Tutorial for real robotic manipulation
-[a]([url](https://semantic-geometric-representation.github.io/))
+[A Universal Semantic-Geometric Representation for Robotic Manipulation](https://semantic-geometric-representation.github.io/)
 
 
 

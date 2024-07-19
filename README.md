@@ -107,7 +107,7 @@ RLBench is an ambitious large-scale benchmark and learning environment featuring
 
 2.  [Perceiver-Actor: A Multi-Task Transformer for Robotic Manipulation (Per-Act)](https://peract.github.io/)
 PerAct is an end-to-end behavior-cloning agent that can learn a single language-conditioned policy for 18 RLBench tasks with 249 unique task variations 
-
+It provides a colab link to learn: (https://colab.research.google.com/drive/1HAqemP4cE81SQ6QO1-N85j5bF4C0qLs0?usp=sharing)
 3.  [A Universal Semantic-Geometric Representation for Robotic Manipulation](https://semantic-geometric-representation.github.io/)
 Leveraging semantic information from massive 2D images and geometric information from 3D point clouds, we present Semantic-Geometric Representation (SGR) that enables the robots to solve a range of simulated and real-world manipulation tasks. 
 

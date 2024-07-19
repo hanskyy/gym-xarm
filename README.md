@@ -1,55 +1,102 @@
-# Gym implementation for Xarm 
 
-OpenAI Gym Xarm7 robot environment implemented with PyBullet.
+
+# Robotic Arm Project
+
+Welcome to the Robotic Arm Project! This repository contains the code and instructions to install and run the robotic arm. Follow the steps below to get started.
+
+## Table of Contents
+
+- [Prerequisites](#prerequisites)
+- [Installation](#installation)
+- [Configuration](#configuration)
+- [Running the Robotic Arm](#running-the-robotic-arm)
+- [Troubleshooting](#troubleshooting)
+- [Contributing](#contributing)
+- [License](#license)
+
+## Prerequisites
+
+Before you begin, ensure you have the following prerequisites installed:
+
+- Python 3.8 or later
+- Pip (Python package manager)
+- [Xarm Studio](https://www.ufactory.cc/ufactory-studio/)
+- [xArm Python SDK](https://github.com/xArm-Developer/xArm-Python-SDK)
 
 ## Installation
 
-```shell
-git clone https://github.com/jc-bao/gym-xarm.git
-cd gym-xarm
-pip install -e .
+Follow these steps to clone the repository and install the necessary dependencies:
+
+1. Clone the repository:
+    ```bash
+    git clone https://github.com/yourusername/ufactory-xarm7.git
+    cd ufactory-xarm7
+    ```
+
+2. Create and activate a virtual environment (recommended):
+    ```bash
+    python -m venv venv
+    source venv/bin/activate   # On Windows, use `venv\Scripts\activate`
+    ```
+
+3. Install the required dependencies:
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+4. Install the xArm Python SDK:
+    ```bash
+    pip install git+https://github.com/xArm-Developer/xArm-Python-SDK.git
+    ```
+
+## Configuration
+
+Before running the UFactory xArm7, you need to configure the settings:
+
+1. Create a configuration file by copying the example file:
+    ```bash
+    cp config.example.json config.json
+    ```
+
+2. Edit `config.json` to match your setup. Make sure to specify the correct serial port or IP address and other necessary parameters. Example `config.json`:
+    ```json
+    {
+      "port": "/dev/ttyUSB0",  # For USB connection
+      "ip": "192.168.1.1",     # For Ethernet connection
+      "baudrate": 115200,
+      "timeout": 10
+    }
+    ```
+
+## Running the UFactory xArm7
+
+Once the installation and configuration are complete, you can run the UFactory xArm7 using the following command:
+
+```bash
+python main.py
 ```
 
-## Use Cases
-
-### Running Example
-
+Here is a basic example of a main.py script to control the xArm7:
 ```python
-import gym_xarm
-env = gym.make('XarmReach-v0') 
-env.reset()
-for _ in range(env._max_episode_timesteps):
-    env.render()
-    obs, reward, done, info = env.step(env.action_space.sample())
-env.close()
+import json
+from xarm.wrapper import XArmAPI
+
+# Load configuration
+with open('config.json') as config_file:
+    config = json.load(config_file)
+
+# Connect to xArm
+arm = XArmAPI(config['ip'], baud_checkset=False)
+
+# Initialize the arm
+arm.motion_enable(enable=True)
+arm.set_mode(0)
+arm.set_state(0)
+
+# Example: Move to a position
+arm.set_position(x=200, y=0, z=150, speed=50, wait=True)
+
+# Disconnect
+arm.disconnect()
 ```
-
-### Test Environment
-
-In the test environment, the robot will take random actions.
-
-```python
-python test.py
-```
-
-### Training with Stable-Baseline3
-
-```python
-python train.py --algo a2c --env XarmPDHandoverDenseEnvNoGoal-v1 
-```
-
-## Demo
-
-| XarmReach-v0                                                 | XarmPickAndPlace-v0                                          | XarmPDPickAndPlace-v0                                        |
-| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| ![Large GIF (320x320)](https://tva1.sinaimg.cn/large/008i3skNgy1gsxjpl1q49g308w08wnpd.gif) | ![Large GIF (320x320)](https://tva1.sinaimg.cn/large/008i3skNgy1gsxjlnnjudg308w08wu0x.gif) | ![Large GIF (320x320)](https://tva1.sinaimg.cn/large/008i3skNgy1gsxjxkzv0tg308w08wqv5.gif) |
-| XarmPDStackTower-v0                                          | XarmPDRearrange-v0                                           | XarmPDPushWithDoor-v0                                        |
-| ![Large GIF (700x476)](https://tva1.sinaimg.cn/large/008i3skNly1gtcozatwg5g60jg0d84qq02.gif) | ![Large GIF (700x476)](https://tva1.sinaimg.cn/large/008i3skNly1gtcp15o238g60jg0d8e8102.gif) | ![Large GIF (700x476)](https://tva1.sinaimg.cn/large/008i3skNly1gtcsbfz94dg60jg0d8hdt02.gif) |
-| XarmPDOpenBoxAndPlace-v0                                     | XarmPDHandover-v0                                            |                                                              |
-| ![Large GIF (700x476)](https://tva1.sinaimg.cn/large/008i3skNly1gtcw0mkcerg60jg0d8hdt02.gif) | ![handover_demo](https://tva1.sinaimg.cn/large/008i3skNly1gwgz5n90r7g30f40dm7wl.gif)<br />![image-20211116142917846](https://tva1.sinaimg.cn/large/008i3skNly1gwgz697451j30vy0muabd.jpg) |                                                              |
-
-> ⚠️**Note**:
->
-> * `XarmPickAndPlace-v0` uses Xarm gripper, which can not be constrained in Pybullet. This will result in severe slippage or distortion in gripper shape. Both `p.createConstraint()` and `p.setJointMotorControl2()` has been tried, they are helpless in this situation even if we set a extremly large force or friction coefficient. 
-> * So I recommend to use Panda gripper (the register ID is `XarmPDPickAndPlace-v0`) which needs less constrains and has a better performance in fetch tasks. 
 

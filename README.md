@@ -10,7 +10,7 @@ Welcome to the Robotic Arm Project! This repository contains the code and instru
 - [Installation](#installation)
 - [Configuration](#configuration)
 - [Running the Robotic Arm](#running-the-robotic-arm)
-- [Tutorial for real robotic manipulation](#tutorial for real robotic manipulation)
+- [Tutorial for real robotic manipulation](#tutorial-for-real-robotic-manipulation)
 
 
 
